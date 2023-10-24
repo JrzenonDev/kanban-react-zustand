@@ -1,5 +1,5 @@
 import "./App.css";
-import Column from "./assets/components/Column";
+import Column from "./components/Column";
 
 function App() {
   return (
