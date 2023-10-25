@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useStore } from "../store";
 import "./Column.css";
 import Task from "./Task";
+import classNames from "classnames";
 
 export default function Column({ state }) {
   const [text, setText] = useState("");
@@ -19,12 +20,17 @@ export default function Column({ state }) {
 
   return (
     <div
-      className="column"
+      className={classNames("column", { drop: drop })}
       onDragOver={(e) => {
         setDrop(true);
         e.preventDefault();
       }}
+      onDragLeave={(e) => {
+        setDrop(false);
+        e.preventDefault();
+      }}
       onDrop={() => {
+        setDrop(false);
         moveTask(draggedTask, state);
         setDraggedTask(null);
       }}

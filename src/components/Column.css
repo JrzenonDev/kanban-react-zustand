@@ -6,7 +6,12 @@
   max-width: 20rem;
   margin: 0 0.5rem;
   border-radius: 4px;
+  border: dashed transparent 4px;
   padding: 0.5rem;
+}
+
+.column.drop {
+  border-color: #fff;
 }
 
 .titleWrapper {
