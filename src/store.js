@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
 const store = (set) => ({
   // Initial store values
@@ -7,20 +8,32 @@ const store = (set) => ({
 
   // Actions
   addTask: (title, state) =>
-    set((store) => ({ tasks: [...store.tasks, { title, state }] })),
+    set(
+      (store) => ({ tasks: [...store.tasks, { title, state }] }),
+      false,
+      "addTask"
+    ),
   deleteTask: (title) =>
-    set((store) => ({
-      tasks: store.tasks.filter((task) => task.title !== title),
-    })),
+    set(
+      (store) => ({
+        tasks: store.tasks.filter((task) => task.title !== title),
+      }),
+      false,
+      "deleteTask"
+    ),
 
   // set draggedTask
   setDraggedTask: (title) => set({ draggedTask: title }),
   moveTask: (title, state) =>
-    set((store) => ({
-      tasks: store.tasks.map((task) =>
-        task.title === title ? { title, state } : task
-      ),
-    })),
+    set(
+      (store) => ({
+        tasks: store.tasks.map((task) =>
+          task.title === title ? { title, state } : task
+        ),
+      }),
+      false,
+      "moveTask"
+    ),
 });
 
-export const useStore = create(store);
+export const useStore = create(devtools(store));
