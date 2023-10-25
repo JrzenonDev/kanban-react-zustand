@@ -7,11 +7,19 @@ export default function Column({ state }) {
     store.tasks.filter((task) => task.state === state)
   );
 
+  const addTask = useStore((store) => store.addTask);
+
   return (
     <div className="column">
       <div className="titleWrapper">
         <p>{state}</p>
-        <button>Add</button>
+        <button
+          onClick={() => {
+            addTask("New Task" + state, state);
+          }}
+        >
+          Add
+        </button>
       </div>
       {tasks.map((task) => (
         <Task key={task.title} title={task.title} />
