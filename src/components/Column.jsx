@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { useStore } from "../store";
 import "./Column.css";
 import Task from "./Task";
 
 export default function Column({ state }) {
+  const [text, setText] = useState("");
+  const [open, setOpen] = useState(false);
+
   const tasks = useStore((store) =>
     store.tasks.filter((task) => task.state === state)
   );
@@ -15,7 +19,7 @@ export default function Column({ state }) {
         <p>{state}</p>
         <button
           onClick={() => {
-            addTask("New Task" + state, state);
+            setOpen(true);
           }}
         >
           Add
@@ -24,6 +28,26 @@ export default function Column({ state }) {
       {tasks.map((task) => (
         <Task key={task.title} title={task.title} />
       ))}
+      {open && (
+        <div className="modal">
+          <div className="modalContent">
+            <input
+              type="text"
+              onChange={(e) => setText(e.target.value)}
+              value={text}
+            />
+            <button
+              onClick={() => {
+                addTask(text, state);
+                setText("");
+                setOpen(false);
+              }}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
