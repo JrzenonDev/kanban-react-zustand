@@ -10,6 +10,11 @@
   justify-content: space-between;
 }
 
+.task img {
+  height: 1.25rem;
+  cursor: pointer;
+}
+
 .bottomWrapper {
   display: flex;
   justify-content: space-between;
